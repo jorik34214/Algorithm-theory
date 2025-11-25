@@ -1,4 +1,4 @@
-## Сортування вибором
+# Сортування вибором
 def selection_sort(arr):
     a = arr.copy()
     n = len(a)
@@ -26,7 +26,7 @@ print("Відсортована послідовність:", sorted_arr)
 print("Кількість порівнянь:", cmp_count)
 print("Кількість присвоєнь:", asg_count)
 
-## Сортування вставками
+# Сортування вставками
 def insertion_sort(arr):
     a = arr.copy()
     n = len(a)
