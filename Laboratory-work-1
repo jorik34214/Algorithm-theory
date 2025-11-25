@@ -1,1 +1,63 @@
+## Сортування вибором
+def selection_sort(arr):
+    a = arr.copy()
+    n = len(a)
+    comparisons = 0
+    assignments = 0
 
+    for i in range(n - 1):
+        min_index = i
+        for j in range(i + 1, n):
+            comparisons += 1
+            if a[j] < a[min_index]:
+                min_index = j
+        a[i], a[min_index] = a[min_index], a[i]
+        assignments += 3  
+
+    return a, comparisons, assignments
+
+arr = [86, 36, 14, 50, 64, 21, 2, 83, 82]
+
+sorted_arr, cmp_count, asg_count = selection_sort(arr)
+
+print("=== Сортування вибором ===")
+print("Початкова послідовність:", arr)
+print("Відсортована послідовність:", sorted_arr)
+print("Кількість порівнянь:", cmp_count)
+print("Кількість присвоєнь:", asg_count)
+
+## Сортування вставками
+def insertion_sort(arr):
+    a = arr.copy()
+    n = len(a)
+    comparisons = 0
+    assignments = 0
+
+    for i in range(1, n):
+        key = a[i]
+        assignments += 1
+        j = i - 1
+
+        while j >= 0:
+            comparisons += 1
+            if a[j] > key:
+                a[j + 1] = a[j]
+                assignments += 1
+                j -= 1
+            else:
+                break
+
+        a[j + 1] = key
+        assignments += 1
+
+    return a, comparisons, assignments
+
+arr = [86, 36, 14, 50, 64, 21, 2, 83, 82]
+
+sorted_arr, cmp_count, asg_count = insertion_sort(arr)
+
+print("=== Сортування вставками ===")
+print("Початкова послідовність:", arr)
+print("Відсортована послідовність:", sorted_arr)
+print("Кількість порівнянь:", cmp_count)
+print("Кількість присвоєнь:", asg_count)
