@@ -1,1 +1,66 @@
+# Cортування злиттям
+def merge_iterative(a, left, mid, right):
+    result = []
+    i, j = left, mid
 
+    while i < mid and j < right:
+        if a[i] <= a[j]:
+            result.append(a[i])
+            i += 1
+        else:
+            result.append(a[j])
+            j += 1
+
+    result.extend(a[i:mid])
+    result.extend(a[j:right])
+
+    a[left:right] = result
+
+
+def merge_sort_iterative(a):
+    n = len(a)
+    size = 1
+
+    while size < n:
+        for left in range(0, n, size * 2):
+            mid = min(left + size, n)
+            right = min(left + 2 * size, n)
+
+            merge_iterative(a, left, mid, right)
+
+        size *= 2
+
+    return a
+
+
+# Приклад використання
+arr = [86, 36, 14, 50, 64, 21, 2, 83, 82]
+print("Початковий масив:", arr)
+sorted_arr = merge_sort_iterative(arr)
+print("Відсортований масив:", sorted_arr)
+
+# Швидке сортування
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+
+    arr[i+1], arr[high] = arr[high], arr[i+1]
+    return i + 1
+
+
+def quicksort_lomuto(arr, low, high):
+    if low < high:
+        p = partition(arr, low, high)
+        quicksort_lomuto(arr, low, p - 1)
+        quicksort_lomuto(arr, p + 1, high)
+
+
+# Приклад використання
+arr = [86, 36, 14, 50, 64, 21, 2, 83, 82]
+quicksort_lomuto(arr, 0, len(arr) - 1)
+print("Відсортований масив:", arr)
