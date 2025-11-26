@@ -1,1 +1,48 @@
+# Сортування купою
+def heapify(arr, n, i, counters):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
 
+    # Порівняння з лівим
+    if left < n:
+        counters["cmp"] += 1
+        if arr[left] > arr[largest]:
+            largest = left
+
+    # Порівняння з правим
+    if right < n:
+        counters["cmp"] += 1
+        if arr[right] > arr[largest]:
+            largest = right
+
+    # Якщо найбільший елемент не корінь - міняємо
+    if largest != i:
+        counters["assign"] += 3  # при swap: 3 присвоювання
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest, counters)
+
+
+def heap_sort(arr):
+    n = len(arr)
+    counters = {"cmp": 0, "assign": 0}
+
+    # Будуємо купу
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i, counters)
+
+    for i in range(n - 1, 0, -1):
+        counters["assign"] += 3  # swap
+        arr[0], arr[i] = arr[i], arr[0]
+        heapify(arr, i, 0, counters)
+
+    return arr, counters
+
+
+data = [86, 36, 14, 50, 64, 21, 2, 83, 82]
+
+sorted_data, counters = heap_sort(data)
+
+print("Відсортована послідовність:", sorted_data)
+print("Кількість порівнянь:", counters["cmp"])
+print("Кількість присвоювань:", counters["assign"])
