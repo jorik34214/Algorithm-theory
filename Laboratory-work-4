@@ -1,1 +1,23 @@
+M = 13  # розмір хеш-таблиці
+
+def hash_function(key):
+    """Проста хеш-функція: сума Unicode-кодів символів % M"""
+    return sum(ord(c) for c in key) % M
+
+# Початкова послідовність (очищена від ком і повторів)
+words = ["НЕ", "ТОЙ", "ДРУГ", "ХТО", "МЕДОМ",
+         "МАЖЕ", "А", "ТОЙ", "ХТО", "ПРАВДУ", "КАЖЕ"]
+
+# Створення порожньої хеш-таблиці
+hash_table = [[] for _ in range(M)]
+
+# Заповнення таблиці
+for word in words:
+    index = hash_function(word)
+    hash_table[index].append(word)
+
+# Виведення хеш-таблиці
+print("--- Результат хешування (Таблиця M = 13) ---")
+for i in range(M):
+    print(f"Індекс {i:02}: {hash_table[i]}")
 
